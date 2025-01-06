@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import pokemonArray from "./pokemon-array";
 
-export default function Body({ increaseCScore, resetCScore }) {
+export default function Body({ increaseCScore, resetCScore, checkHighScore }) {
   const [pokemons, setPokemons] = useState([]);
   const [clickedMons, setClickedMons] = useState([]);
 
@@ -28,12 +28,30 @@ export default function Body({ increaseCScore, resetCScore }) {
       shuffle();
       increaseCScore();
     } else {
+      checkHighScore();
       resetCScore();
+      setClickedMons([]);
     }
   }
 
+  //Fisher-Yates Knuth Shuffle, credits to
+  // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+
   function shuffle() {
-    //
+    let currentIndex = pokemons.length;
+    let array = pokemons.slice(0);
+
+    while (currentIndex != 0) {
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    setPokemons(array);
   }
 
   if (pokemons.length > 0) {

@@ -16,14 +16,18 @@ function App() {
     setCScore(0);
   }
 
-  function checkHighScore(score) {
-    score > highScore ? setHighScore(score) : null;
+  function checkHighScore() {
+    cScore > highScore ? setHighScore(cScore) : null;
   }
 
   return (
     <>
       <Header cScore={cScore} highScore={highScore} />
-      <Body increaseCScore={increaseCScore} resetCScore={resetCScore} />
+      <Body
+        increaseCScore={increaseCScore}
+        resetCScore={resetCScore}
+        checkHighScore={checkHighScore}
+      />
     </>
   );
 }
