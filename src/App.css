@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+}
+
+header {
+  padding: 1rem 2rem;
+}
+
+.rule-and-logo {
+  display: flex;
+  justify-content: space-around;
+}
+
+.score {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.cards {
+  padding: 0 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  justify-items: center;
+}
+
+.card-container {
+  padding: 0.5rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid gainsboro;
+  border-radius: 3px;
+}
+
+.card-container:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  border: 3px solid rgba(227, 224, 224, 0.574);
+
+  .p-image {
+    border: 1px solid rgb(153, 153, 121);
+  }
+
+  .p-header {
+    font-weight: 700;
+  }
+}
+
+.p-image {
+  background-color: white;
+  border: 1px solid beige;
+  border-radius: 12px;
+}
+
+.p-header {
+  text-align: center;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid black;
+}
+
+.p-health {
+  font-size: 0.7rem;
+  padding: 0.1rem 0;
+}
+
+.p-health::before {
+  content: "HP: ";
+  font-size: 0.7rem;
+  font-style: oblique;
+}
+
+.p-ability {
+  padding: 0.1rem 0;
+
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.p-ability::before {
+  content: "Ability: ";
+  font-size: 0.7rem;
+}

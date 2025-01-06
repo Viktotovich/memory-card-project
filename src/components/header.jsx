@@ -8,8 +8,10 @@ export default function Header() {
           twice!
         </p>
       </div>
-      <p>Current Score</p>
-      <p>High Score</p>
+      <div className="score">
+        <p>Current Score:</p>
+        <p>High Score:</p>
+      </div>
     </header>
   );
 }
