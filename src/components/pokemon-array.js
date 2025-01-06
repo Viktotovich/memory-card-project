@@ -12,4 +12,5 @@ const pokemonArr = [
   "horsea",
 ];
 
-export default { pokemonArr };
+//I am my worst enemy, fixed: exported an array encapsulated in an object
+export default pokemonArr;

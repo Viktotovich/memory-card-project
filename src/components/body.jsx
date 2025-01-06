@@ -2,8 +2,24 @@ import { useEffect, useState } from "react";
 import pokemonArray from "./pokemon-array";
 
 export default function Body() {
-  /*OOOOOOOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH, WE CAN ADD LOADING ICONSSSSSSSSS */
   const [pokemons, setPokemons] = useState([]);
+
+  useEffect(() => {
+    async function getThePokemons(name) {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      return await response.json();
+    }
+
+    async function renderPokemons() {
+      pokemonArray.map((name) => console.log(name));
+      const pokemonData = await Promise.all(pokemonArray.map(getThePokemons));
+      setPokemons(pokemonData);
+    }
+
+    //renderPokemons();
+  }, []);
+
+  console.log(pokemons);
 
   return (
     <section>
