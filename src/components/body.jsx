@@ -1,8 +1,10 @@
+/* eslint react/prop-types: 0 */
 import { useEffect, useState } from "react";
 import pokemonArray from "./pokemon-array";
 
-export default function Body() {
+export default function Body({ increaseCScore, resetCScore }) {
   const [pokemons, setPokemons] = useState([]);
+  const [clickedMons, setClickedMons] = useState([]);
 
   useEffect(() => {
     async function getThePokemons(name) {
@@ -11,20 +13,29 @@ export default function Body() {
     }
 
     async function renderPokemons() {
-      pokemonArray.map((name) => console.log(name));
       const pokemonData = await Promise.all(pokemonArray.map(getThePokemons));
       setPokemons(pokemonData);
     }
 
-    //renderPokemons();
+    renderPokemons();
   }, []);
 
-  console.log(pokemons);
+  function processClick(e) {
+    console.log(e);
+  }
+
+  function shuffle() {
+    //
+  }
 
   if (pokemons.length > 0) {
     return (
       <section>
-        <div>Stuff here</div>
+        <div className="cards">
+          {pokemons.map((pokemon) => {
+            return <PokeCard pokemon={pokemon} key={pokemon.species.name} />;
+          })}
+        </div>
       </section>
     );
   } else {
@@ -32,59 +43,20 @@ export default function Body() {
   }
 }
 
-function PokeCard() {
+function PokeCard({ pokemon }) {
   return (
     <div className="card-container">
       <div className="pokemon-container">
-        <div className="p-header">Pokemon Name</div>
-        <div className="p-health">HP 100</div>
+        <div className="p-header">{pokemon.species.name}</div>
+        <div className="p-health">{pokemon.stats[0]["base_stat"]}</div>
         <div className="p-image">
-          <img src="/fake-a-mon.webp" alt="fake pokemon" />
+          <img
+            src={pokemon.sprites["front_default"]}
+            alt={pokemon.species.name}
+          />
         </div>
-        <div className="p-ability">Cuddle</div>
+        <div className="p-ability">{pokemon.abilities[0].ability.name}</div>
       </div>
     </div>
   );
 }
-
-//This worked
-async function mockCall2() {
-  const pokemonData = await fetch("https://pokeapi.co/api/v2/pokemon/ditto");
-  return pokemonData.json();
-}
-
-//don't overcall - and check this out
-//Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://pokeapi.co/api/v2/pokemon/poochyena. (Reason: CORS request did not succeed). Status code: (null).
-
-/*
-
-  useEffect(() => {
-    async function getThePokemons(name) {
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${name}/`
-        );
-
-        if (response.status >= 200 && response.status < 300) {
-          return await response.json();
-        } else {
-          throw new Error(`Rejecc, HTTP status ${response.status}`);
-        }
-      } catch (err) {
-        throw new Error(`${err.name}: ${err} at ${err.stack}`);
-      }
-    }
-
-    async function renderPokemons() {
-      pokemonArray.map((name) => console.log(name));
-      const pokemonData = await Promise.all(pokemonArray.map(getThePokemons));
-      setPokemons(pokemonData);
-    }
-
-    renderPokemons();
-  }, []);
-  
-  Uncaught (in promise) Error: TypeError: TypeError: NetworkError when attempting to fetch resource. at 
-
-  It's not an HTTP request error, rather a NetworkError
-  */

@@ -8,10 +8,22 @@ function App() {
   const [cScore, setCScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
+  function increaseCScore() {
+    setCScore(() => cScore + 1);
+  }
+
+  function resetCScore() {
+    setCScore(0);
+  }
+
+  function checkHighScore(score) {
+    score > highScore ? setHighScore(score) : null;
+  }
+
   return (
     <>
-      <Header />
-      <Body />
+      <Header cScore={cScore} highScore={highScore} />
+      <Body increaseCScore={increaseCScore} resetCScore={resetCScore} />
     </>
   );
 }
