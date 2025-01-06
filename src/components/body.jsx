@@ -21,7 +21,15 @@ export default function Body({ increaseCScore, resetCScore }) {
   }, []);
 
   function processClick(e) {
-    console.log(e);
+    let name = e.target.alt;
+    let isDuplicate = clickedMons.filter((pNames) => pNames === name);
+    if (isDuplicate.length === 0) {
+      setClickedMons([...clickedMons, name]);
+      shuffle();
+      increaseCScore();
+    } else {
+      resetCScore();
+    }
   }
 
   function shuffle() {
@@ -33,7 +41,13 @@ export default function Body({ increaseCScore, resetCScore }) {
       <section>
         <div className="cards">
           {pokemons.map((pokemon) => {
-            return <PokeCard pokemon={pokemon} key={pokemon.species.name} />;
+            return (
+              <PokeCard
+                pokemon={pokemon}
+                key={pokemon.species.name}
+                processClick={processClick}
+              />
+            );
           })}
         </div>
       </section>
@@ -43,9 +57,9 @@ export default function Body({ increaseCScore, resetCScore }) {
   }
 }
 
-function PokeCard({ pokemon }) {
+function PokeCard({ pokemon, processClick }) {
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={processClick}>
       <div className="pokemon-container">
         <div className="p-header">{pokemon.species.name}</div>
         <div className="p-health">{pokemon.stats[0]["base_stat"]}</div>
